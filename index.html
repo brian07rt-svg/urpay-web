@@ -3,1028 +3,449 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>URPay — Know What You Actually Made</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<title>URPay — Business Software for Contractors</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --green: #1a8a4a;
-    --green-light: #22a85a;
-    --green-dim: #0f5c30;
-    --green-bg: #f0faf4;
-    --black: #0a0e0b;
-    --gray-900: #111815;
-    --gray-800: #1c2420;
-    --gray-700: #2a3330;
-    --gray-600: #3d4f49;
-    --gray-400: #6b7f78;
-    --gray-200: #b8c4bf;
-    --gray-100: #e2eae6;
-    --gray-50: #f4f7f5;
-    --white: #ffffff;
-    --font-display: 'Bebas Neue', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
-    --font-mono: 'DM Mono', monospace;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--font-body);
-    background: var(--black);
-    color: var(--white);
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  /* NAV */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem 2.5rem;
-    background: rgba(10, 14, 11, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-
-  .nav-logo {
-    font-family: var(--font-display);
-    font-size: 1.8rem;
-    letter-spacing: 0.05em;
-    color: var(--green-light);
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    color: var(--gray-200);
-    text-decoration: none;
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    transition: color 0.2s;
-  }
-
-  .nav-links a:hover { color: var(--white); }
-
-  .nav-cta {
-    background: var(--green);
-    color: var(--white) !important;
-    padding: 0.5rem 1.25rem;
-    border-radius: 6px;
-    font-weight: 600 !important;
-    transition: background 0.2s !important;
-  }
-
-  .nav-cta:hover { background: var(--green-light) !important; color: var(--white) !important; }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 8rem 2rem 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(26,138,74,0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(26,138,74,0.08) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(26,138,74,0.15);
-    border: 1px solid rgba(26,138,74,0.3);
-    color: #4ade80;
-    font-size: 0.8rem;
-    font-weight: 500;
-    padding: 0.35rem 1rem;
-    border-radius: 100px;
-    margin-bottom: 2rem;
-    font-family: var(--font-mono);
-    letter-spacing: 0.05em;
-  }
-
-  .hero-badge::before {
-    content: '';
-    width: 6px; height: 6px;
-    background: #4ade80;
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-
-  .hero h1 {
-    font-family: var(--font-display);
-    font-size: clamp(4rem, 10vw, 9rem);
-    line-height: 0.95;
-    letter-spacing: 0.02em;
-    color: var(--white);
-    margin-bottom: 1rem;
-    position: relative;
-  }
-
-  .hero h1 span {
-    color: var(--green-light);
-    display: block;
-  }
-
-  .hero-sub {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    color: var(--gray-400);
-    max-width: 520px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.7;
-    font-weight: 400;
-  }
-
-  .hero-sub strong {
-    color: var(--gray-200);
-    font-weight: 500;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    background: var(--green);
-    color: var(--white);
-    padding: 0.875rem 2rem;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
-    border: none;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .btn-primary:hover { background: var(--green-light); transform: translateY(-1px); }
-
-  .btn-secondary {
-    background: transparent;
-    color: var(--gray-200);
-    padding: 0.875rem 2rem;
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: all 0.2s;
-    border: 1px solid rgba(255,255,255,0.12);
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .btn-secondary:hover { border-color: rgba(255,255,255,0.3); color: var(--white); }
-
-  .hero-proof {
-    margin-top: 4rem;
-    display: flex;
-    gap: 3rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .hero-proof-item {
-    text-align: center;
-  }
-
-  .hero-proof-item strong {
-    display: block;
-    font-family: var(--font-display);
-    font-size: 2.5rem;
-    color: var(--green-light);
-    letter-spacing: 0.02em;
-  }
-
-  .hero-proof-item span {
-    font-size: 0.8rem;
-    color: var(--gray-400);
-    font-family: var(--font-mono);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-  }
-
-  /* PROBLEM */
-  .problem {
-    padding: 6rem 2rem;
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .section-label {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--green-light);
-    margin-bottom: 1rem;
-    display: block;
-  }
-
-  .problem h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    line-height: 1;
-    letter-spacing: 0.02em;
-    margin-bottom: 1.5rem;
-    color: var(--white);
-  }
-
-  .problem p {
-    color: var(--gray-400);
-    font-size: 1.1rem;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .problem-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 12px;
-    overflow: hidden;
-    margin-top: 3rem;
-  }
-
-  .problem-card {
-    background: var(--gray-900);
-    padding: 2rem;
-    text-align: left;
-  }
-
-  .problem-card .icon {
-    width: 40px; height: 40px;
-    background: rgba(220,38,38,0.1);
-    border: 1px solid rgba(220,38,38,0.2);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-  }
-
-  .problem-card h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 0.5rem;
-  }
-
-  .problem-card p {
-    font-size: 0.875rem;
-    color: var(--gray-400);
-    line-height: 1.6;
-  }
-
-  /* FEATURES */
-  .features {
-    padding: 6rem 2rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .features-header {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-
-  .features-header h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    letter-spacing: 0.02em;
-    margin-bottom: 1rem;
-  }
-
-  .features-header p {
-    color: var(--gray-400);
-    font-size: 1.1rem;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .feature-card {
-    background: var(--gray-900);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 12px;
-    padding: 2rem;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-
-  .feature-card:hover {
-    border-color: rgba(26,138,74,0.3);
-    transform: translateY(-2px);
-  }
-
-  .feature-card.featured {
-    border-color: rgba(26,138,74,0.3);
-    background: linear-gradient(135deg, rgba(26,138,74,0.08), var(--gray-900));
-    grid-column: span 2;
-  }
-
-  .feature-icon {
-    width: 44px; height: 44px;
-    background: rgba(26,138,74,0.12);
-    border: 1px solid rgba(26,138,74,0.25);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.25rem;
-    font-size: 1.1rem;
-  }
-
-  .feature-card h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 0.6rem;
-  }
-
-  .feature-card p {
-    font-size: 0.9rem;
-    color: var(--gray-400);
-    line-height: 1.65;
-  }
-
-  .feature-tag {
-    display: inline-block;
-    background: rgba(26,138,74,0.15);
-    color: #4ade80;
-    font-size: 0.7rem;
-    font-family: var(--font-mono);
-    letter-spacing: 0.08em;
-    padding: 0.25rem 0.6rem;
-    border-radius: 4px;
-    margin-top: 1rem;
-    text-transform: uppercase;
-  }
-
-  /* REPLACES */
-  .replaces {
-    padding: 6rem 2rem;
-    background: var(--gray-900);
-    border-top: 1px solid rgba(255,255,255,0.06);
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-  }
-
-  .replaces-inner {
-    max-width: 1000px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .replaces h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    letter-spacing: 0.02em;
-    margin-bottom: 0.75rem;
-  }
-
-  .replaces > .replaces-inner > p {
-    color: var(--gray-400);
-    margin-bottom: 3rem;
-    font-size: 1.1rem;
-  }
-
-  .replaces-table {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    gap: 1rem;
-    align-items: center;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .replaces-col {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .replaces-item {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 8px;
-    padding: 0.875rem 1.25rem;
-    font-size: 0.9rem;
-    color: var(--gray-400);
-    text-align: left;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  .replaces-item.urpay {
-    background: rgba(26,138,74,0.08);
-    border-color: rgba(26,138,74,0.25);
-    color: var(--white);
-  }
-
-  .replaces-item .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .replaces-item .dot.old { background: rgba(220,38,38,0.5); }
-  .replaces-item .dot.new { background: var(--green-light); }
-
-  .replaces-arrow {
-    font-size: 1.5rem;
-    color: var(--green-light);
-    font-weight: 300;
-  }
-
-  /* PRICING */
-  .pricing {
-    padding: 6rem 2rem;
-    max-width: 1100px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .pricing h2 {
-    font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 5rem);
-    letter-spacing: 0.02em;
-    margin-bottom: 0.75rem;
-  }
-
-  .pricing > p {
-    color: var(--gray-400);
-    font-size: 1.1rem;
-    margin-bottom: 3rem;
-  }
-
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
-    text-align: left;
-  }
-
-  .pricing-card {
-    background: var(--gray-900);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 12px;
-    padding: 2rem;
-    position: relative;
-  }
-
-  .pricing-card.popular {
-    border-color: var(--green);
-  }
-
-  .popular-badge {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--green);
-    color: var(--white);
-    font-size: 0.7rem;
-    font-family: var(--font-mono);
-    letter-spacing: 0.08em;
-    padding: 0.25rem 0.75rem;
-    border-radius: 100px;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .pricing-card h3 {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--green-light);
-    margin-bottom: 1rem;
-  }
-
-  .pricing-price {
-    font-family: var(--font-display);
-    font-size: 3.5rem;
-    color: var(--white);
-    line-height: 1;
-    letter-spacing: 0.02em;
-    margin-bottom: 0.25rem;
-  }
-
-  .pricing-price span {
-    font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--gray-400);
-    font-weight: 400;
-  }
-
-  .pricing-desc {
-    font-size: 0.875rem;
-    color: var(--gray-400);
-    margin-bottom: 1.5rem;
-    line-height: 1.5;
-  }
-
-  .pricing-features {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    margin-bottom: 1.75rem;
-  }
-
-  .pricing-features li {
-    font-size: 0.875rem;
-    color: var(--gray-200);
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
-  }
-
-  .pricing-features li::before {
-    content: '✓';
-    color: var(--green-light);
-    font-weight: 600;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .pricing-btn {
-    display: block;
-    text-align: center;
-    padding: 0.75rem;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.9rem;
-    text-decoration: none;
-    transition: all 0.2s;
-    cursor: pointer;
-    border: none;
-    width: 100%;
-  }
-
-  .pricing-btn-outline {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,0.15);
-    color: var(--white);
-  }
-
-  .pricing-btn-outline:hover { border-color: rgba(255,255,255,0.3); }
-
-  .pricing-btn-green {
-    background: var(--green);
-    color: var(--white);
-  }
-
-  .pricing-btn-green:hover { background: var(--green-light); }
-
-  /* CTA */
-  .cta-section {
-    padding: 6rem 2rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-bg {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, rgba(26,138,74,0.12) 0%, transparent 70%);
-  }
-
-  .cta-section h2 {
-    font-family: var(--font-display);
-    font-size: clamp(3rem, 7vw, 7rem);
-    letter-spacing: 0.02em;
-    line-height: 1;
-    margin-bottom: 1.5rem;
-    position: relative;
-  }
-
-  .cta-section p {
-    color: var(--gray-400);
-    font-size: 1.1rem;
-    margin-bottom: 2.5rem;
-    position: relative;
-  }
-
-  .cta-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    position: relative;
-  }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 3rem 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: gap;
-    gap: 1rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  .footer-logo {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    color: var(--green-light);
-    letter-spacing: 0.05em;
-  }
-
-  footer p {
-    font-size: 0.8rem;
-    color: var(--gray-600);
-    font-family: var(--font-mono);
-  }
-
-  footer a {
-    color: var(--gray-400);
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-family: var(--font-mono);
-    transition: color 0.2s;
-  }
-
-  footer a:hover { color: var(--white); }
-
-  .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-
-  /* DIVIDER */
-  .divider {
-    width: 60px; height: 2px;
-    background: var(--green);
-    margin: 1.5rem auto;
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .fade-up {
-    animation: fadeUp 0.7s ease forwards;
-  }
-
-  .fade-up-delay-1 { animation-delay: 0.1s; opacity: 0; }
-  .fade-up-delay-2 { animation-delay: 0.2s; opacity: 0; }
-  .fade-up-delay-3 { animation-delay: 0.35s; opacity: 0; }
-  .fade-up-delay-4 { animation-delay: 0.5s; opacity: 0; }
-
-  /* MOBILE */
-  @media (max-width: 768px) {
-    nav { padding: 1rem 1.25rem; }
-    .nav-links { display: none; }
-    .feature-card.featured { grid-column: span 1; }
-    .replaces-table { grid-template-columns: 1fr; }
-    .replaces-arrow { transform: rotate(90deg); margin: 0.5rem auto; }
-    footer { flex-direction: column; text-align: center; }
-    .footer-links { justify-content: center; }
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --green: #1a7a3f;
+  --green-light: #22a855;
+  --green-pale: #e8f5ee;
+  --green-mid: #c8ecd7;
+  --gray-900: #111827;
+  --gray-700: #374151;
+  --gray-500: #6b7280;
+  --gray-300: #d1d5db;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --gray-50: #f9fafb;
+  --white: #ffffff;
+  --font: 'Inter', -apple-system, sans-serif;
+  --radius: 12px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.06);
+  --shadow-lg: 0 4px 24px rgba(0,0,0,0.10), 0 1px 3px rgba(0,0,0,0.06);
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); background: var(--white); color: var(--gray-900); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.96); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 0 5%; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { font-size: 1.4rem; font-weight: 700; color: var(--green); letter-spacing: -0.02em; }
+.nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--gray-700); transition: color 0.15s; }
+.nav-links a:hover { color: var(--green); }
+.nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+.btn-ghost { font-size: 0.875rem; font-weight: 500; color: var(--gray-700); padding: 0.5rem 1rem; border-radius: 8px; transition: background 0.15s; border: none; background: none; cursor: pointer; }
+.btn-ghost:hover { background: var(--gray-100); }
+.btn-green { font-size: 0.875rem; font-weight: 600; color: var(--white); background: var(--green); padding: 0.5rem 1.25rem; border-radius: 8px; transition: background 0.15s; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem; }
+.btn-green:hover { background: var(--green-light); }
+.btn-green-lg { font-size: 1rem; padding: 0.875rem 2rem; border-radius: 10px; }
+.btn-outline-lg { font-size: 1rem; font-weight: 600; color: var(--gray-700); background: var(--white); padding: 0.875rem 2rem; border-radius: 10px; border: 1.5px solid var(--gray-300); cursor: pointer; transition: border-color 0.15s, color 0.15s; display: inline-flex; align-items: center; gap: 0.4rem; }
+.btn-outline-lg:hover { border-color: var(--green); color: var(--green); }
+
+.hero { background: linear-gradient(160deg, #f0faf4 0%, #ffffff 60%); padding: 5rem 5% 0; text-align: center; overflow: hidden; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--green-pale); color: var(--green); font-size: 0.8rem; font-weight: 600; padding: 0.35rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; }
+.hero h1 { font-size: clamp(2.2rem, 5vw, 3.75rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.03em; color: var(--gray-900); max-width: 780px; margin: 0 auto 1.25rem; }
+.hero h1 em { font-style: normal; color: var(--green); }
+.hero p { font-size: 1.125rem; color: var(--gray-500); max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.7; }
+.hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem; }
+.hero-fine { font-size: 0.8rem; color: var(--gray-500); margin-bottom: 3rem; }
+
+.hero-screen { background: var(--white); border-radius: 16px 16px 0 0; box-shadow: 0 -4px 40px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.06); max-width: 900px; margin: 0 auto; overflow: hidden; }
+.screen-bar { background: var(--gray-100); padding: 0.6rem 1rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid var(--gray-200); }
+.screen-dot { width: 10px; height: 10px; border-radius: 50%; }
+.screen-ui { padding: 1.25rem; background: var(--gray-50); display: grid; grid-template-columns: 180px 1fr; gap: 1rem; }
+.screen-sidebar { background: var(--white); border-radius: 10px; padding: 1rem; border: 1px solid var(--gray-200); }
+.sidebar-logo { font-weight: 700; color: var(--green); font-size: 1rem; margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--gray-100); }
+.sidebar-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.6rem; border-radius: 7px; font-size: 0.78rem; font-weight: 500; color: var(--gray-500); margin-bottom: 0.2rem; }
+.sidebar-item.active { background: var(--green-pale); color: var(--green); }
+.screen-main { display: flex; flex-direction: column; gap: 0.875rem; }
+.screen-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+.stat-box { background: var(--white); border-radius: 8px; padding: 0.875rem; border: 1px solid var(--gray-200); }
+.stat-label { font-size: 0.68rem; color: var(--gray-500); font-weight: 500; margin-bottom: 0.3rem; }
+.stat-value { font-size: 1.05rem; font-weight: 700; color: var(--gray-900); }
+.stat-value.green { color: var(--green); }
+.stat-value.orange { color: #d97706; }
+.screen-jobs { background: var(--white); border-radius: 10px; border: 1px solid var(--gray-200); overflow: hidden; }
+.jobs-header { display: flex; align-items: center; justify-content: space-between; padding: 0.7rem 1rem; border-bottom: 1px solid var(--gray-100); }
+.jobs-title { font-size: 0.78rem; font-weight: 600; color: var(--gray-900); }
+.jobs-btn { font-size: 0.68rem; font-weight: 600; background: var(--green); color: white; padding: 0.2rem 0.55rem; border-radius: 5px; }
+.job-row { display: flex; align-items: center; justify-content: space-between; padding: 0.55rem 1rem; border-bottom: 1px solid var(--gray-50); }
+.job-name { font-size: 0.73rem; font-weight: 600; color: var(--gray-900); }
+.job-client { font-size: 0.63rem; color: var(--gray-500); }
+.job-amount { font-size: 0.73rem; font-weight: 700; color: var(--green); }
+.job-badge { font-size: 0.58rem; font-weight: 600; padding: 0.12rem 0.4rem; border-radius: 4px; }
+.badge-active { background: #dcfce7; color: #166534; }
+.badge-paid { background: #dbeafe; color: #1d4ed8; }
+
+.logos { padding: 2.5rem 5%; text-align: center; border-bottom: 1px solid var(--gray-100); }
+.logos p { font-size: 0.75rem; font-weight: 500; color: var(--gray-500); margin-bottom: 1.25rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.logos-row { display: flex; align-items: center; justify-content: center; gap: 2.5rem; flex-wrap: wrap; }
+.logo-item { font-size: 0.95rem; font-weight: 700; color: var(--gray-300); letter-spacing: -0.02em; }
+
+.features { padding: 5rem 5%; max-width: 1200px; margin: 0 auto; }
+.section-tag { display: inline-block; font-size: 0.72rem; font-weight: 600; color: var(--green); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem; }
+.section-h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 700; letter-spacing: -0.025em; color: var(--gray-900); margin-bottom: 1rem; line-height: 1.2; }
+.section-p { font-size: 1.05rem; color: var(--gray-500); max-width: 520px; line-height: 1.7; }
+.features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
+.feature-card { padding: 1.75rem; border-radius: var(--radius); border: 1px solid var(--gray-200); background: var(--white); transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s; }
+.feature-card:hover { box-shadow: var(--shadow); transform: translateY(-2px); border-color: var(--green-mid); }
+.feature-icon-wrap { width: 44px; height: 44px; background: var(--green-pale); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 1.2rem; }
+.feature-card h3 { font-size: 1rem; font-weight: 600; color: var(--gray-900); margin-bottom: 0.5rem; }
+.feature-card p { font-size: 0.875rem; color: var(--gray-500); line-height: 1.65; }
+.feature-tag { display: inline-block; margin-top: 0.75rem; font-size: 0.68rem; font-weight: 600; color: var(--green); background: var(--green-pale); padding: 0.2rem 0.6rem; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+.split { padding: 5rem 5%; background: var(--gray-50); border-top: 1px solid var(--gray-100); border-bottom: 1px solid var(--gray-100); }
+.split-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.split-content h2 { font-size: clamp(1.6rem, 2.5vw, 2.25rem); font-weight: 700; letter-spacing: -0.025em; color: var(--gray-900); margin-bottom: 1rem; line-height: 1.25; }
+.split-content p { font-size: 1rem; color: var(--gray-500); line-height: 1.75; margin-bottom: 1.5rem; }
+.split-checklist { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+.split-checklist li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.9rem; color: var(--gray-700); }
+.split-checklist li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+.split-visual { background: var(--white); border-radius: 16px; box-shadow: var(--shadow-lg); border: 1px solid var(--gray-200); overflow: hidden; }
+.visual-header { background: var(--green); padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; }
+.visual-title { font-size: 0.875rem; font-weight: 600; color: white; }
+.visual-body { padding: 1.25rem; }
+.visual-row { display: flex; align-items: center; justify-content: space-between; padding: 0.7rem 0; border-bottom: 1px solid var(--gray-100); }
+.visual-row:last-child { border-bottom: none; }
+.visual-label { font-size: 0.8rem; color: var(--gray-500); }
+.visual-value { font-size: 0.875rem; font-weight: 600; color: var(--gray-900); }
+.visual-value.green { color: var(--green); }
+.visual-value.red { color: #dc2626; }
+.margin-bar { margin-top: 0.75rem; background: var(--gray-100); border-radius: 100px; height: 8px; overflow: hidden; }
+.margin-fill { background: var(--green); height: 100%; border-radius: 100px; }
+
+.replaces { padding: 5rem 5%; max-width: 1000px; margin: 0 auto; text-align: center; }
+.replaces-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 3rem; text-align: left; max-width: 680px; margin-left: auto; margin-right: auto; }
+.replace-card { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 1.1rem 1.25rem; display: flex; align-items: flex-start; gap: 0.875rem; }
+.replace-x { font-size: 0.9rem; color: #dc2626; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.replace-check { font-size: 0.9rem; color: var(--green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.replace-card h4 { font-size: 0.85rem; font-weight: 600; color: var(--gray-900); margin-bottom: 0.2rem; }
+.replace-card p { font-size: 0.78rem; color: var(--gray-500); }
+
+.pricing { padding: 5rem 5%; background: var(--gray-50); border-top: 1px solid var(--gray-100); }
+.pricing-inner { max-width: 1100px; margin: 0 auto; text-align: center; }
+.pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; text-align: left; }
+.pricing-card { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius); padding: 2rem; position: relative; }
+.pricing-card.popular { border-color: var(--green); border-width: 2px; }
+.popular-tag { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--green); color: white; font-size: 0.68rem; font-weight: 700; padding: 0.25rem 0.875rem; border-radius: 100px; white-space: nowrap; letter-spacing: 0.04em; text-transform: uppercase; }
+.pricing-card h3 { font-size: 0.8rem; font-weight: 600; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1rem; }
+.pricing-price { font-size: 2.5rem; font-weight: 700; color: var(--gray-900); letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.25rem; }
+.pricing-price span { font-size: 0.9rem; font-weight: 400; color: var(--gray-500); }
+.pricing-desc { font-size: 0.82rem; color: var(--gray-500); margin-bottom: 1.5rem; line-height: 1.5; min-height: 38px; }
+.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
+.pricing-features li { font-size: 0.82rem; color: var(--gray-700); display: flex; align-items: flex-start; gap: 0.5rem; }
+.pricing-features li::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+.pricing-cta { display: block; text-align: center; padding: 0.7rem; border-radius: 8px; font-weight: 600; font-size: 0.875rem; transition: all 0.15s; cursor: pointer; border: none; width: 100%; }
+.pricing-cta-outline { background: transparent; border: 1.5px solid var(--gray-300); color: var(--gray-700); }
+.pricing-cta-outline:hover { border-color: var(--green); color: var(--green); }
+.pricing-cta-green { background: var(--green); color: white; }
+.pricing-cta-green:hover { background: var(--green-light); }
+
+.testimonial { padding: 5rem 5%; max-width: 760px; margin: 0 auto; text-align: center; }
+.testimonial blockquote { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 500; color: var(--gray-900); line-height: 1.65; letter-spacing: -0.01em; margin-bottom: 2rem; }
+.testimonial-author { display: flex; align-items: center; justify-content: center; gap: 0.75rem; }
+.author-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--green-pale); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--green); font-size: 0.875rem; }
+.author-name { font-size: 0.875rem; font-weight: 600; color: var(--gray-900); }
+.author-title { font-size: 0.8rem; color: var(--gray-500); }
+
+.cta-band { background: var(--green); padding: 4rem 5%; text-align: center; }
+.cta-band h2 { font-size: clamp(1.75rem, 3vw, 2.5rem); font-weight: 700; color: white; letter-spacing: -0.025em; margin-bottom: 0.75rem; }
+.cta-band p { font-size: 1.05rem; color: rgba(255,255,255,0.8); margin-bottom: 2rem; }
+.btn-white { background: white; color: var(--green); font-size: 1rem; font-weight: 700; padding: 0.875rem 2.5rem; border-radius: 10px; border: none; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; display: inline-block; }
+.btn-white:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.cta-fine { margin-top: 1rem; font-size: 0.8rem; color: rgba(255,255,255,0.6); }
+
+footer { padding: 2.5rem 5%; border-top: 1px solid var(--gray-100); }
+.footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-logo { font-size: 1.1rem; font-weight: 700; color: var(--green); }
+.footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.footer-links a { font-size: 0.82rem; color: var(--gray-500); transition: color 0.15s; }
+.footer-links a:hover { color: var(--green); }
+.footer-copy { font-size: 0.8rem; color: var(--gray-500); }
+
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .split-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+  .screen-sidebar { display: none; }
+  .screen-ui { grid-template-columns: 1fr; }
+  .screen-stats { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .pricing-grid { grid-template-columns: 1fr; }
+  .replaces-grid { grid-template-columns: 1fr; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <div class="nav-logo">URPAY</div>
+  <div class="nav-logo">URPay</div>
   <ul class="nav-links">
     <li><a href="#features">Features</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#replaces">Why URPay</a></li>
-    <li><a href="#" class="nav-cta">Download app</a></li>
   </ul>
+  <div class="nav-actions">
+    <a href="#" class="btn-ghost">Log in</a>
+    <a href="#" class="btn-green">Try free →</a>
+  </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-grid"></div>
-
-  <div class="hero-badge fade-up">Built by a contractor, for contractors</div>
-
-  <h1 class="fade-up fade-up-delay-1">
-    KNOW WHAT
-    <span>YOU MADE.</span>
-  </h1>
-
-  <p class="hero-sub fade-up fade-up-delay-2">
-    URPay is the only app that shows you <strong>real profit per job</strong> — not just revenue.
-    Invoice clients, track costs, manage your crew, and get paid. All in one place.
-  </p>
-
-  <div class="hero-actions fade-up fade-up-delay-3">
-    <a href="#" class="btn-primary">
-      Download free
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 17l-5-5h10l-5 5z"/><path d="M12 3v14"/><path d="M5 21h14"/></svg>
-    </a>
-    <a href="#features" class="btn-secondary">See how it works</a>
+  <div class="hero-eyebrow">
+    <span style="width:6px;height:6px;background:var(--green);border-radius:50%;display:inline-block;animation:pulse 2s infinite"></span>
+    Built by a contractor, for contractors
   </div>
-
-  <div class="hero-proof fade-up fade-up-delay-4">
-    <div class="hero-proof-item">
-      <strong>$0</strong>
-      <span>to start</span>
-    </div>
-    <div class="hero-proof-item">
-      <strong>5 min</strong>
-      <span>to first invoice</span>
-    </div>
-    <div class="hero-proof-item">
-      <strong>2×</strong>
-      <span>faster payments</span>
-    </div>
-    <div class="hero-proof-item">
-      <strong>iOS</strong>
-      <span>native app</span>
-    </div>
+  <h1>The only app that shows you <em>real profit</em> on every job</h1>
+  <p>Invoice clients, track costs, pay your crew, and see exactly what you made — all in one place. No spreadsheets. No guessing.</p>
+  <div class="hero-actions">
+    <a href="#" class="btn-green btn-green-lg">Start for free</a>
+    <a href="#features" class="btn-outline-lg">See how it works</a>
   </div>
-</section>
+  <p class="hero-fine">Free to start · No credit card required · iOS app</p>
 
-<!-- PROBLEM -->
-<section class="problem">
-  <span class="section-label">The problem</span>
-  <h2>FRESHBOOKS SHOWS REVENUE.<br>NOT PROFIT.</h2>
-  <div class="divider"></div>
-  <p>Every other invoicing tool tells you what you billed. URPay tells you what you actually kept after materials, labor, and subs. That's the number that matters.</p>
-
-  <div class="problem-cards">
-    <div class="problem-card">
-      <div class="icon">💸</div>
-      <h3>You finish a job and don't know if you made money</h3>
-      <p>Revenue looks good. But after materials, crew, and subs — you're not sure if you actually profited.</p>
+  <div class="hero-screen">
+    <div class="screen-bar">
+      <div class="screen-dot" style="background:#ff5f57"></div>
+      <div class="screen-dot" style="background:#ffbd2e"></div>
+      <div class="screen-dot" style="background:#28c840"></div>
+      <span style="font-size:0.72rem;color:#6b7280;margin-left:0.5rem">URPay — Dashboard</span>
     </div>
-    <div class="problem-card">
-      <div class="icon">📱</div>
-      <h3>You're using 5 different apps</h3>
-      <p>FreshBooks for invoices. Excel for job costs. Group chat for crew. Photos in your camera roll. It's a mess.</p>
-    </div>
-    <div class="problem-card">
-      <div class="icon">⏱️</div>
-      <h3>Your crew clock-in is a gas station headcount</h3>
-      <p>No record of who showed up, what they worked on, or what you owe them. You're guessing every Friday.</p>
+    <div class="screen-ui">
+      <div class="screen-sidebar">
+        <div class="sidebar-logo">URPay</div>
+        <div class="sidebar-item active">📊 Dashboard</div>
+        <div class="sidebar-item">🔨 Jobs</div>
+        <div class="sidebar-item">🧾 Invoices</div>
+        <div class="sidebar-item">👷 Crew</div>
+        <div class="sidebar-item">💡 Insights</div>
+        <div class="sidebar-item">⚙️ Settings</div>
+      </div>
+      <div class="screen-main">
+        <div class="screen-stats">
+          <div class="stat-box"><div class="stat-label">Total revenue</div><div class="stat-value">$48,200</div></div>
+          <div class="stat-box"><div class="stat-label">Net profit</div><div class="stat-value green">$31,450</div></div>
+          <div class="stat-box"><div class="stat-label">Outstanding</div><div class="stat-value orange">$7,800</div></div>
+          <div class="stat-box"><div class="stat-label">Active jobs</div><div class="stat-value">4</div></div>
+        </div>
+        <div class="screen-jobs">
+          <div class="jobs-header">
+            <span class="jobs-title">Recent jobs</span>
+            <span class="jobs-btn">+ New invoice</span>
+          </div>
+          <div class="job-row">
+            <div><div class="job-name">Johnson Kitchen Tile</div><div class="job-client">Sarah Johnson · GC</div></div>
+            <div style="display:flex;align-items:center;gap:0.75rem"><span class="job-badge badge-active">Active</span><span class="job-amount">$12,400</span></div>
+          </div>
+          <div class="job-row">
+            <div><div class="job-name">Rivera Bathroom Remodel</div><div class="job-client">Kitchen & Bath Co · Sub</div></div>
+            <div style="display:flex;align-items:center;gap:0.75rem"><span class="job-badge badge-paid">Paid</span><span class="job-amount">$8,200</span></div>
+          </div>
+          <div class="job-row">
+            <div><div class="job-name">Commercial Lobby Floor</div><div class="job-client">ABC Construction · Sub</div></div>
+            <div style="display:flex;align-items:center;gap:0.75rem"><span class="job-badge badge-active">Active</span><span class="job-amount">$22,500</span></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- FEATURES -->
+<section class="logos">
+  <p>Built for contractors across the trades</p>
+  <div class="logos-row">
+    <span class="logo-item">Flooring</span>
+    <span class="logo-item">Tile</span>
+    <span class="logo-item">Plumbing</span>
+    <span class="logo-item">Electrical</span>
+    <span class="logo-item">General Contracting</span>
+    <span class="logo-item">Roofing</span>
+  </div>
+</section>
+
 <section class="features" id="features">
-  <div class="features-header">
-    <span class="section-label">What URPay does</span>
-    <h2>EVERYTHING IN<br>ONE APP.</h2>
-    <p>Built specifically for contractors. Not accountants. Not restaurants. You.</p>
+  <div style="text-align:center;max-width:600px;margin:0 auto">
+    <span class="section-tag">Features</span>
+    <h2 class="section-h2">Everything you need.<br>Nothing you don't.</h2>
+    <p class="section-p">Built specifically for contractors — not accountants, not restaurants. You.</p>
   </div>
-
   <div class="features-grid">
-    <div class="feature-card featured">
-      <div class="feature-icon">📊</div>
-      <h3>Real-time profit tracking</h3>
-      <p>Every job shows you live revenue, costs, profit, and margin. You always know exactly what you made — not just what you billed. Log materials, labor, and subcontractor costs as you go and watch your margin update instantly.</p>
-      <span class="feature-tag">Core feature</span>
-    </div>
+    <div class="feature-card"><div class="feature-icon-wrap">📊</div><h3>Real-time profit tracking</h3><p>See live revenue, costs, profit, and margin on every job. Log materials, labor, and subs as you go and watch your margin update instantly.</p></div>
+    <div class="feature-card"><div class="feature-icon-wrap">🧾</div><h3>Professional invoicing</h3><p>Create polished PDF invoices in seconds. Email or text directly from the app. Track every invoice status from draft to paid.</p></div>
+    <div class="feature-card"><div class="feature-icon-wrap">🎤</div><h3>Voice to invoice</h3><p>Speak naturally in English or Spanish. AI extracts the details and builds your invoice automatically. No typing needed.</p><span class="feature-tag">AI powered</span></div>
+    <div class="feature-card"><div class="feature-icon-wrap">👷</div><h3>Crew clock in / out</h3><p>Workers clock in from their phone. Hours log automatically to the job. See exactly what you owe and mark workers paid with one tap.</p></div>
+    <div class="feature-card"><div class="feature-icon-wrap">🤖</div><h3>AI business insights</h3><p>Weekly profit summaries and job pattern analysis. Know which work makes you the most money and where you're losing margin.</p><span class="feature-tag">AI powered</span></div>
+    <div class="feature-card"><div class="feature-icon-wrap">📸</div><h3>Job photo portfolio</h3><p>Document every job with before and after photos. Share a clean link with clients and GCs — no app required on their end.</p></div>
+    <div class="feature-card"><div class="feature-icon-wrap">💳</div><h3>Client payment portal</h3><p>Clients pay invoices online with a card. No checks, no Zelle confusion. Get paid 2x faster with online payments.</p><span class="feature-tag">Coming soon</span></div>
+    <div class="feature-card"><div class="feature-icon-wrap">📋</div><h3>Tax reports</h3><p>Quarterly breakdowns, deductible expense categories, and year-end summaries your accountant will actually appreciate.</p></div>
+    <div class="feature-card"><div class="feature-icon-wrap">📱</div><h3>Native iOS app</h3><p>Built for iPhone from the ground up. Fast, reliable, and designed for job sites — not office desks.</p></div>
+  </div>
+</section>
 
-    <div class="feature-card">
-      <div class="feature-icon">🧾</div>
-      <h3>Professional invoicing</h3>
-      <p>Create and send polished PDF invoices in seconds. Email or text directly from the app. Track status — draft, sent, paid, overdue.</p>
+<section class="split">
+  <div class="split-inner">
+    <div class="split-content">
+      <span class="section-tag">Profit tracking</span>
+      <h2>Finally know what you actually made</h2>
+      <p>FreshBooks shows you revenue. URPay shows you profit. There's a big difference — and profit is the only number that tells you if a job was worth taking.</p>
+      <ul class="split-checklist">
+        <li>Log costs by category — materials, labor, subs, equipment</li>
+        <li>Real-time margin updates as you add costs to a job</li>
+        <li>Compare jobs to see what work makes you the most</li>
+        <li>AI tells you where you're losing money and why</li>
+      </ul>
     </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">🎤</div>
-      <h3>Voice to invoice</h3>
-      <p>Speak naturally in English or Spanish. AI extracts job details and builds the invoice automatically. No typing needed.</p>
-      <span class="feature-tag">AI powered</span>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">👷</div>
-      <h3>Crew clock in / out</h3>
-      <p>Workers clock in and out from their phone. Hours log automatically. You see exactly what you owe each worker and can mark them paid with one tap.</p>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">🤖</div>
-      <h3>AI business insights</h3>
-      <p>Every Monday, URPay analyzes your jobs and tells you which work is most profitable, where you're losing margin, and what to do about it.</p>
-      <span class="feature-tag">AI powered</span>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">📸</div>
-      <h3>Job photo portfolio</h3>
-      <p>Document every job with before and after photos. Share a clean link with clients and GCs — no app required on their end.</p>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">💳</div>
-      <h3>Client payment portal</h3>
-      <p>Clients pay invoices online with a card. No checks, no Zelle confusion. Get paid 2x faster.</p>
-      <span class="feature-tag">Coming soon</span>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">📋</div>
-      <h3>Tax reports</h3>
-      <p>Quarterly breakdowns, deductible expense categories, and year-end summaries ready for your accountant.</p>
+    <div class="split-visual">
+      <div class="visual-header">
+        <span class="visual-title">Johnson Kitchen Tile</span>
+        <span style="font-size:0.75rem;color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.15);padding:0.15rem 0.5rem;border-radius:4px">Active</span>
+      </div>
+      <div class="visual-body">
+        <div class="visual-row"><span class="visual-label">Invoice amount</span><span class="visual-value">$12,400.00</span></div>
+        <div class="visual-row"><span class="visual-label">Materials</span><span class="visual-value red">− $2,840.00</span></div>
+        <div class="visual-row"><span class="visual-label">Labor (crew)</span><span class="visual-value red">− $1,200.00</span></div>
+        <div class="visual-row"><span class="visual-label">Other costs</span><span class="visual-value red">− $320.00</span></div>
+        <div class="visual-row" style="border-top: 2px solid var(--gray-200);margin-top:0.25rem">
+          <span style="font-size:0.9rem;font-weight:700;color:var(--gray-900)">Net profit</span>
+          <span style="font-size:1.1rem;font-weight:700;color:var(--green)">$8,040.00</span>
+        </div>
+        <div style="margin-top:0.875rem">
+          <div style="display:flex;justify-content:space-between;margin-bottom:0.4rem">
+            <span style="font-size:0.75rem;color:var(--gray-500)">Profit margin</span>
+            <span style="font-size:0.75rem;font-weight:600;color:var(--green)">64.8%</span>
+          </div>
+          <div class="margin-bar"><div class="margin-fill" style="width:64.8%"></div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- REPLACES -->
 <section class="replaces" id="replaces">
-  <div class="replaces-inner">
-    <span class="section-label">Why switch</span>
-    <h2>ONE APP.<br>NOT FIVE.</h2>
-    <p>URPay replaces every tool in your workflow.</p>
-
-    <div class="replaces-table">
-      <div class="replaces-col">
-        <div class="replaces-item">
-          <div class="dot old"></div>
-          FreshBooks — invoicing
-        </div>
-        <div class="replaces-item">
-          <div class="dot old"></div>
-          Excel — job cost tracking
-        </div>
-        <div class="replaces-item">
-          <div class="dot old"></div>
-          Jobber — crew management
-        </div>
-        <div class="replaces-item">
-          <div class="dot old"></div>
-          Google Photos — job photos
-        </div>
-        <div class="replaces-item">
-          <div class="dot old"></div>
-          Manual timesheets
-        </div>
-      </div>
-
-      <div class="replaces-arrow">→</div>
-
-      <div class="replaces-col">
-        <div class="replaces-item urpay">
-          <div class="dot new"></div>
-          URPay invoicing
-        </div>
-        <div class="replaces-item urpay">
-          <div class="dot new"></div>
-          URPay profit tracking
-        </div>
-        <div class="replaces-item urpay">
-          <div class="dot new"></div>
-          URPay crew + clock in/out
-        </div>
-        <div class="replaces-item urpay">
-          <div class="dot new"></div>
-          URPay job photo portfolio
-        </div>
-        <div class="replaces-item urpay">
-          <div class="dot new"></div>
-          URPay crew hours + pay
-        </div>
-      </div>
-    </div>
+  <span class="section-tag">Why URPay</span>
+  <h2 class="section-h2">One app replaces five</h2>
+  <p class="section-p" style="margin:0.75rem auto 0">Stop juggling FreshBooks, Excel, group texts, and your camera roll.</p>
+  <div class="replaces-grid">
+    <div class="replace-card"><div class="replace-x">✕</div><div><h4>FreshBooks for invoicing</h4><p>Shows revenue, not real profit</p></div></div>
+    <div class="replace-card" style="background:var(--green-pale);border-color:var(--green-mid)"><div class="replace-check">✓</div><div><h4>URPay invoicing + profit</h4><p>Invoice and track real margins</p></div></div>
+    <div class="replace-card"><div class="replace-x">✕</div><div><h4>Excel for job costs</h4><p>Manual, slow, always outdated</p></div></div>
+    <div class="replace-card" style="background:var(--green-pale);border-color:var(--green-mid)"><div class="replace-check">✓</div><div><h4>URPay real-time cost tracking</h4><p>Live margin updates as you log</p></div></div>
+    <div class="replace-card"><div class="replace-x">✕</div><div><h4>Manual crew timesheets</h4><p>Gas station headcount on Fridays</p></div></div>
+    <div class="replace-card" style="background:var(--green-pale);border-color:var(--green-mid)"><div class="replace-check">✓</div><div><h4>URPay crew clock in/out</h4><p>Automatic hours and pay tracking</p></div></div>
+    <div class="replace-card"><div class="replace-x">✕</div><div><h4>Camera roll for job photos</h4><p>Unorganized, unshareable mess</p></div></div>
+    <div class="replace-card" style="background:var(--green-pale);border-color:var(--green-mid)"><div class="replace-check">✓</div><div><h4>URPay job photo portfolio</h4><p>Organized and shareable by job</p></div></div>
   </div>
 </section>
 
-<!-- PRICING -->
 <section class="pricing" id="pricing">
-  <span class="section-label">Pricing</span>
-  <h2>SIMPLE PRICING.<br>NO SURPRISES.</h2>
-  <p>Start free. Upgrade when you're ready.</p>
-
-  <div class="pricing-grid">
-    <div class="pricing-card">
-      <h3>Free</h3>
-      <div class="pricing-price">$0<span>/mo</span></div>
-      <p class="pricing-desc">Try it out with no commitment.</p>
-      <ul class="pricing-features">
-        <li>Up to 3 active jobs</li>
-        <li>Basic invoicing</li>
-        <li>Cost tracking</li>
-        <li>iOS app</li>
-      </ul>
-      <button class="pricing-btn pricing-btn-outline">Download free</button>
-    </div>
-
-    <div class="pricing-card popular">
-      <div class="popular-badge">Most popular</div>
-      <h3>Pro</h3>
-      <div class="pricing-price">$49<span>/mo</span></div>
-      <p class="pricing-desc">For contractors who are serious about profit.</p>
-      <ul class="pricing-features">
-        <li>Unlimited jobs</li>
-        <li>AI profit insights</li>
-        <li>Voice to invoice (EN + ES)</li>
-        <li>Crew clock in/out</li>
-        <li>Tax reports</li>
-        <li>PDF export + email/text</li>
-      </ul>
-      <button class="pricing-btn pricing-btn-green">Get started</button>
-    </div>
-
-    <div class="pricing-card">
-      <h3>Business</h3>
-      <div class="pricing-price">$79<span>/mo</span></div>
-      <p class="pricing-desc">For growing teams that need more.</p>
-      <ul class="pricing-features">
-        <li>Everything in Pro</li>
-        <li>Team permissions</li>
-        <li>Job photo sharing</li>
-        <li>Client payment portal</li>
-        <li>Multi-user access</li>
-        <li>Priority support</li>
-      </ul>
-      <button class="pricing-btn pricing-btn-outline">Get started</button>
-    </div>
-
-    <div class="pricing-card">
-      <h3>Enterprise</h3>
-      <div class="pricing-price" style="font-size: 2.5rem;">Custom</div>
-      <p class="pricing-desc">For large contracting firms that need the full platform.</p>
-      <ul class="pricing-features">
-        <li>Full web platform</li>
-        <li>Multi-job P&amp;L dashboard</li>
-        <li>Certified payroll reports</li>
-        <li>AIA billing format</li>
-        <li>Dedicated account manager</li>
-        <li>API access</li>
-      </ul>
-      <button class="pricing-btn pricing-btn-outline">Contact us</button>
+  <div class="pricing-inner">
+    <span class="section-tag">Pricing</span>
+    <h2 class="section-h2">Simple, transparent pricing</h2>
+    <p class="section-p" style="margin:0.75rem auto 0">Start free. Upgrade when you're ready. Cancel anytime.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3>Free</h3>
+        <div class="pricing-price">$0<span>/mo</span></div>
+        <p class="pricing-desc">Try it with no commitment.</p>
+        <ul class="pricing-features">
+          <li>Up to 3 active jobs</li>
+          <li>Basic invoicing</li>
+          <li>Cost tracking</li>
+          <li>iOS app</li>
+        </ul>
+        <button class="pricing-cta pricing-cta-outline">Download free</button>
+      </div>
+      <div class="pricing-card popular">
+        <div class="popular-tag">Most popular</div>
+        <h3>Pro</h3>
+        <div class="pricing-price">$49<span>/mo</span></div>
+        <p class="pricing-desc">For contractors serious about profit.</p>
+        <ul class="pricing-features">
+          <li>Unlimited jobs</li>
+          <li>AI profit insights</li>
+          <li>Voice to invoice</li>
+          <li>Crew clock in/out</li>
+          <li>Tax reports</li>
+          <li>PDF export</li>
+        </ul>
+        <button class="pricing-cta pricing-cta-green">Get started</button>
+      </div>
+      <div class="pricing-card">
+        <h3>Business</h3>
+        <div class="pricing-price">$79<span>/mo</span></div>
+        <p class="pricing-desc">For growing teams that need more.</p>
+        <ul class="pricing-features">
+          <li>Everything in Pro</li>
+          <li>Team permissions</li>
+          <li>Photo sharing</li>
+          <li>Client payment portal</li>
+          <li>Multi-user access</li>
+          <li>Priority support</li>
+        </ul>
+        <button class="pricing-cta pricing-cta-outline">Get started</button>
+      </div>
+      <div class="pricing-card">
+        <h3>Enterprise</h3>
+        <div class="pricing-price" style="font-size:1.75rem;padding-top:0.5rem">Custom</div>
+        <p class="pricing-desc">For large contracting firms.</p>
+        <ul class="pricing-features">
+          <li>Full web platform</li>
+          <li>Multi-job P&amp;L</li>
+          <li>Certified payroll</li>
+          <li>AIA billing format</li>
+          <li>Dedicated support</li>
+          <li>API access</li>
+        </ul>
+        <button class="pricing-cta pricing-cta-outline">Contact us</button>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section">
-  <div class="cta-bg"></div>
-  <h2>START KNOWING<br>YOUR NUMBERS.</h2>
-  <p>Download URPay free. First invoice in under 5 minutes.</p>
-  <div class="cta-actions">
-    <a href="#" class="btn-primary">Download on iOS</a>
-    <a href="mailto:hello@urpay.app" class="btn-secondary">Contact us</a>
+<section class="testimonial">
+  <blockquote>"I used to finish a job and have no idea if I actually made money. URPay changed that completely. Now I know my profit margin before the job is even done."</blockquote>
+  <div class="testimonial-author">
+    <div class="author-avatar">BT</div>
+    <div>
+      <div class="author-name">Brian Torres</div>
+      <div class="author-title">Owner, ATP Flooring & Custom · San Luis Obispo, CA</div>
+    </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<section class="cta-band">
+  <h2>Start knowing your numbers today.</h2>
+  <p>Download URPay free. Your first invoice in under 5 minutes.</p>
+  <a href="#" class="btn-white">Download on iOS</a>
+  <p class="cta-fine">Free to start · No credit card required</p>
+</section>
+
 <footer>
-  <div class="footer-logo">URPAY</div>
-  <div class="footer-links">
-    <a href="#">Privacy policy</a>
-    <a href="#">Terms of service</a>
-    <a href="mailto:hello@urpay.app">hello@urpay.app</a>
+  <div class="footer-inner">
+    <div class="footer-logo">URPay</div>
+    <div class="footer-links">
+      <a href="#">Features</a>
+      <a href="#">Pricing</a>
+      <a href="#">Privacy policy</a>
+      <a href="#">Terms of service</a>
+      <a href="mailto:hello@urpayapp.com">hello@urpayapp.com</a>
+    </div>
+    <p class="footer-copy">© 2026 URPay. All rights reserved.</p>
   </div>
-  <p>© 2026 URPay. All rights reserved.</p>
 </footer>
 
 </body>
