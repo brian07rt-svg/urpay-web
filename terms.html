@@ -21,17 +21,28 @@
   --gray-50: #f9fafb;
   --white: #ffffff;
   --font: 'Inter', -apple-system, sans-serif;
-  --radius: 12px;
 }
 html { scroll-behavior: smooth; }
 body { font-family: var(--font); background: var(--white); color: var(--gray-900); line-height: 1.7; -webkit-font-smoothing: antialiased; }
-a { text-decoration: none; color: var(--green); }
-a:hover { color: var(--green-light); }
-nav { position: sticky; top: 0; z-index: 100; background: rgba(255,255,255,0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--gray-200); padding: 0 5%; height: 64px; display: flex; align-items: center; justify-content: space-between; }
+a { text-decoration: none; color: inherit; }
+
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.96); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 0 5%; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+}
 .nav-logo { font-size: 1.4rem; font-weight: 700; color: var(--green); letter-spacing: -0.02em; }
 .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
-.nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--gray-700); }
+.nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--gray-700); transition: color 0.15s; }
 .nav-links a:hover { color: var(--green); }
+.nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+.btn-ghost { font-size: 0.875rem; font-weight: 500; color: var(--gray-700); padding: 0.5rem 1rem; border-radius: 8px; transition: background 0.15s; border: none; background: none; cursor: pointer; }
+.btn-ghost:hover { background: var(--gray-100); }
+.btn-green { font-size: 0.875rem; font-weight: 600; color: var(--white); background: var(--green); padding: 0.5rem 1.25rem; border-radius: 8px; transition: background 0.15s; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 0.4rem; }
+.btn-green:hover { background: var(--green-light); }
+
 .page { max-width: 780px; margin: 0 auto; padding: 4rem 5% 6rem; }
 .eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--green-pale); color: var(--green); font-size: 0.8rem; font-weight: 600; padding: 0.35rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; }
 h1 { font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: var(--gray-900); margin-bottom: 0.5rem; }
@@ -42,27 +53,43 @@ p { color: var(--gray-700); margin-bottom: 1rem; font-size: 1rem; }
 ul { color: var(--gray-700); margin-bottom: 1.25rem; padding-left: 1.5rem; }
 li { margin-bottom: 0.5rem; }
 strong { color: var(--gray-900); font-weight: 600; }
+.page a { color: var(--green); }
+.page a:hover { color: var(--green-light); }
 .callout { background: var(--green-pale); border-left: 3px solid var(--green); padding: 1rem 1.25rem; border-radius: 8px; margin: 1.5rem 0; }
 .callout p { margin-bottom: 0; color: var(--gray-700); font-size: 0.95rem; }
-footer { background: var(--gray-50); border-top: 1px solid var(--gray-200); padding: 2.5rem 5%; }
-.footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: space-between; }
-.footer-brand { font-size: 1.1rem; font-weight: 700; color: var(--green); }
+
+footer { padding: 2.5rem 5%; border-top: 1px solid var(--gray-100); }
+.footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-logo { font-size: 1.1rem; font-weight: 700; color: var(--green); }
 .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
-.footer-links a { font-size: 0.875rem; color: var(--gray-500); }
+.footer-links a { font-size: 0.82rem; color: var(--gray-500); transition: color 0.15s; }
 .footer-links a:hover { color: var(--green); }
-.footer-copy { font-size: 0.8rem; color: var(--gray-500); width: 100%; text-align: center; padding-top: 1.5rem; margin-top: 1.5rem; border-top: 1px solid var(--gray-200); }
-@media (max-width: 640px) { .nav-links { display: none; } .page { padding: 2.5rem 5% 4rem; } }
+.footer-copy { font-size: 0.8rem; color: var(--gray-500); }
+
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+}
+@media (max-width: 560px) {
+  .footer-inner { flex-direction: column; text-align: center; }
+  .footer-links { justify-content: center; }
+}
 </style>
 </head>
 <body>
+
 <nav>
-<a href="/" class="nav-logo">URPay</a>
-<ul class="nav-links">
-<li><a href="/#features">Features</a></li>
-<li><a href="/#pricing">Pricing</a></li>
-<li><a href="/">Home</a></li>
-</ul>
+  <a href="/"><div class="nav-logo">URPay</div></a>
+  <ul class="nav-links">
+    <li><a href="/#features">Features</a></li>
+    <li><a href="/#pricing">Pricing</a></li>
+    <li><a href="/#replaces">Why URPay</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="#" class="btn-ghost">Log in</a>
+    <a href="#" class="btn-green">Try free →</a>
+  </div>
 </nav>
+
 <main class="page">
 <div class="eyebrow">Legal</div>
 <h1>Terms of Service</h1>
@@ -133,17 +160,20 @@ footer { background: var(--gray-50); border-top: 1px solid var(--gray-200); padd
 <h2>16. Contact Us</h2>
 <p>Questions about these Terms? Email <a href="mailto:brian07rt@gmail.com">brian07rt@gmail.com</a>.</p>
 </main>
+
 <footer>
-<div class="footer-inner">
-<div class="footer-brand">URPay</div>
-<div class="footer-links">
-<a href="/">Home</a>
-<a href="/privacy">Privacy</a>
-<a href="/terms">Terms</a>
-<a href="mailto:brian07rt@gmail.com">Contact</a>
-</div>
-<div class="footer-copy">© 2026 URPay. Built for contractors who want to see where the money actually goes.</div>
-</div>
+  <div class="footer-inner">
+    <div class="footer-logo">URPay</div>
+    <div class="footer-links">
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/privacy">Privacy policy</a>
+      <a href="/terms">Terms of service</a>
+      <a href="mailto:brian07rt@gmail.com">brian07rt@gmail.com</a>
+    </div>
+    <p class="footer-copy">© 2026 URPay. All rights reserved.</p>
+  </div>
 </footer>
+
 </body>
 </html>
